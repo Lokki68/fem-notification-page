@@ -111,6 +111,12 @@ function App() {
     )))
   }
 
+  function markAllRead() {
+    setNotifications(prev => prev.map(
+      notification => ({ ...notification, isUnread: false })
+    ))
+  }
+
   return (
     <>
       <div className="container">
@@ -121,12 +127,12 @@ function App() {
               {notifications.filter(notification => notification.isUnread).length}
             </span>
           </div>
-          <button>Mark all as read</button>
+          <button onClick={markAllRead} >Mark all as read</button>
         </header>
         <div className="wrapper">
           {
             notifications.map((notification) => (
-              <div key={notification.id} data-unread={notification.isUnread} className='notification' >
+              <div key={notification.id} data-unread={notification.isUnread} className='notification' onClick={() => handleNotificationClick(notification.id)} >
                 <div className="notifcation-content">
                   <img
                     src={notification.author.img}
